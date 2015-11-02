@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+<script src="./app.js"></script>
+<link rel="stylesheet" type="text/css" href="./style.css">
+  <meta charset="utf-8">
+  <title>Node api tutorial</title>
+</head>
+<body>
+
+  <div id='app' ng-app='app' ng-controller='mainCtrl'>
+
+    <div class='add-pokemon-container'>
+      <ul class='links'>
+        <h4 class='h4'>Example gifs</h4>
+        <li ng-repeat='l in links'>
+          <a ng-href='{{l.url}}' target="_blank">{{l.name}}</a>
+        </li>
+      </ul>
+      <form name='newPokemon' ng-submit='addPokemon(newPokemon)' class='add-pokemon-form'>
+        <label class='field'>
+          <input placeholder='paste pokemon gif url here' ng-model='newPokemon.url' type='text' class='input'/>
+        </label>
+        <button type='submit' class='btn'>Add Pokemon Gif</button>
+      </form>
+    </div>
+
+    <ul class='list center'>
+      <li ng-repeat='p in pokemon' class='pokemon'>
+        <img class='avatar' ng-src="{{p.avatarUrl}}" />
+      </li>
+    </ul>
+
+  </div>
+
+</body>
+</html>
