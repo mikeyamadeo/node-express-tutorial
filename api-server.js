@@ -28,11 +28,13 @@ var pokemon = [
   }
 ];
 
+var NODE_PORT = 4000
+var EXPRESS_PORT = 5000
+
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var ROOT_DIR = "src/";
-var port = 4000;
 
 http.createServer(function (req, res) {
   var urlObj = url.parse(req.url, true, false);
@@ -58,7 +60,26 @@ http.createServer(function (req, res) {
     });
   }
 
-}).listen(port);
+}).listen(NODE_PORT);
 
-console.log('app is now running on port: ' + port)
+console.log('http node server is now running on port: ' + NODE_PORT)
 
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(express.static('src'));
+
+app.get('/pokemon', function (request, response) {
+  response.send(pokemon);
+})
+
+app.post('/pokemon', function (request, response) {
+  pokemon = pokemon.concat({avatarUrl: request.body.url})
+  response.send(pokemon);
+})
+
+app.listen(EXPRESS_PORT, function () {
+  console.log('express server is now running on port: ' + EXPRESS_PORT)
+})

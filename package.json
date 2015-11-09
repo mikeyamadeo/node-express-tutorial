@@ -5,8 +5,7 @@
   "main": "api-server.js",
   "dependencies": {
     "body-parser": "1.14.1",
-    "express": "4.13.3",
-    "mongodb": "2.0.46"
+    "express": "4.13.3"
   },
   "devDependencies": {},
   "scripts": {
