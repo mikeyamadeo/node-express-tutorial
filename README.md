@@ -69,7 +69,9 @@ app.listen(EXPRESS_PORT, function () {
 })
 ```
 
-Now if we go to port 5000 ([http://localhost:5000/](http://localhost:5000/) on local machine) we should expect to see the `pokemon gif app` we saw before but with no pokemon gifs. Notice we don't need to be at the `index.html` endpoint. Express is smart enought to check index.html by default.
+Now if we run `node api-server.js` again and go to port 5000 ([http://localhost:5000/](http://localhost:5000/) on local machine) we should expect to see the `pokemon gif app` we saw before but with no pokemon gifs. Notice we don't need to be at the `index.html` endpoint. Express is smart enought to check index.html by default.
+
+Note: it's ok to have a server running on two different ports, which will be the case if you choose not to delete your server built with node's http module.
 
 ##### 3. Set up a `/pokemon` endpoint that returns the pokemon data
 
@@ -112,8 +114,7 @@ app.listen(EXPRESS_PORT, function () {
   console.log('express server is now running on port: ' + EXPRESS_PORT)
 })
 ```
-
-We should expect to see our `pokemon gif app` showing pokemon gifs now.
+Running `node api-server.js` again... We should expect to see our `pokemon gif app` showing pokemon gifs now.
 
 ## Enable the POSTing of pokemon gifs
 
@@ -126,7 +127,7 @@ app.post('/pokemon', function (request, response) {
 })
 ```
 
-If we try to add a gif url though, we are going to have problems, becuase right now `request.body` isn't going to exist. We need to teach express how to parse the body of a request. The following code will do that:
+If we try to add a gif url though, we are going to have problems, because right now `request.body` isn't going to exist. We need to teach express how to parse the body of a request. The following code will do that:
 
 ```js
 var bodyParser = require('body-parser');
