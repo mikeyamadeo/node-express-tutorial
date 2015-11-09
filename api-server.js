@@ -28,24 +28,37 @@ var pokemon = [
   }
 ];
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+var http = require('http');
+var url = require('url');
+var fs = require('fs');
+var ROOT_DIR = "src/";
 var port = 4000;
 
-app.use(express.static('src'));
-app.use(bodyParser.json());
+http.createServer(function (req, res) {
+  var urlObj = url.parse(req.url, true, false);
 
-app.get('/pokemon', function (request, response) {
-  response.send(pokemon);
-})
+  if (urlObj.pathname === '/pokemon') {
 
-app.post('/pokemon', function (request, response) {
-  pokemon = pokemon.concat({avatarUrl: request.body.url})
-  response.send(pokemon);
-})
+    res.writeHead(200);
+    res.end(JSON.stringify(pokemon));
 
-var server = app.listen(port, function () {
-  console.log('app is now running on port: ' + port)
-})
+  } else {
+
+    /**
+     * Here is where we return all requests for files in our 'src' directory
+     */
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+      if (err) {
+        res.writeHead(404);
+        res.end(JSON.stringify(err));
+        return;
+      }
+      res.writeHead(200);
+      res.end(data);
+    });
+  }
+
+}).listen(port);
+
+console.log('app is now running on port: ' + port)
 
