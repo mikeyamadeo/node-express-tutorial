@@ -1,4 +1,4 @@
-# node-mongo-tutorial
+# node-express-tutorial
 We will use expressjs, an abstraction on top of node's http library, to retrieve and post data.
 
 We will cover:
